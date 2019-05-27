@@ -11,7 +11,7 @@ class Completed extends StatelessWidget {
           size: 170.0,
           color: Colors.grey
         ),
-         Text("COMPLETED")
+         Text("COMPLETADOS")
       ],
     ),
   

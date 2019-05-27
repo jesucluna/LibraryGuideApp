@@ -11,7 +11,7 @@ class Favorite extends StatelessWidget {
           size: 170.0,
           color: Colors.grey
         ),
-         Text("FAVORITES")
+         Text("FAVORITOS")
       ],
     ),
   
