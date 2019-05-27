@@ -18,7 +18,7 @@ class _StuffState extends State<Stuff> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text('LibraryGuide',style: TextStyle(color: Colors.white,fontSize: 21.5))),
+        title: Text('LibraryGuide Demo',style: TextStyle(color: Colors.white,fontSize: 21.5))),
       drawer: MyDrawer(),
       body: _pageOptions[_selectedPage],
       bottomNavigationBar: BottomNavigationBar(
