@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libraryapp/default.dart';
 import 'package:libraryapp/default_pages/search.dart';
-import 'futureclass.dart';
+
 
 var title='LibraryGuide Free';
 
@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             SearchScreen()));
-                    
                   } ,
                 )
             

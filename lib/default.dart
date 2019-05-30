@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:libraryapp/default_pages/search.dart';
-import 'package:libraryapp/default_pages/searchwidget.dart';
 import 'package:libraryapp/login_pages/loginemail.dart';
 import 'package:libraryapp/login_pages/registerpage.dart';
 import 'drawer_pages/account.dart';
@@ -12,7 +10,7 @@ import 'main.dart';
 import 'futureclass.dart';
 
 class MyAppBar extends AppBar {
-  MyAppBar({Key key, @required Widget title, bottom})
+  MyAppBar({Key key, Widget title, bottom})
       : super(
             key: key,
             elevation: 0.1,
@@ -44,7 +42,7 @@ class _FuturebState extends State<Futureb> {
             ),
           );
         } else {
-          return GridView.builder(
+          return Container(color: Colors.black,child:GridView.builder(
             itemCount: snapshot.data.length,
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -74,7 +72,7 @@ class _FuturebState extends State<Futureb> {
                     ),
                  
                 ),
-          );
+          ));
         }
       },
     );
