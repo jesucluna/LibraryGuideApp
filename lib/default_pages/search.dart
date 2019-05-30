@@ -13,8 +13,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
-      body: Futureb(query: widget.quer),
-      drawer: MyDrawer(),
+
     );
   }
 }

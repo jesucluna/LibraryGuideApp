@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:libraryapp/default_pages/search.dart';
 import 'package:libraryapp/default_pages/searchwidget.dart';
-//import 'package:libraryapp/default_pages/searchwidget.dart';
+import 'package:libraryapp/login_pages/loginemail.dart';
+import 'package:libraryapp/login_pages/registerpage.dart';
 import 'drawer_pages/account.dart';
 import 'drawer_pages/cat.dart';
 import 'drawer_pages/set.dart';
@@ -10,12 +12,12 @@ import 'main.dart';
 import 'futureclass.dart';
 
 class MyAppBar extends AppBar {
-  MyAppBar({Key key, Widget title, bottom})
+  MyAppBar({Key key, @required Widget title, bottom})
       : super(
             key: key,
             elevation: 0.1,
             backgroundColor: Colors.deepPurpleAccent[700],
-            title: SearchWidget(),
+            title: title,
         );
             /**/
         
@@ -164,10 +166,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(right: 5),
-                        child: _myrbutton("REGISTRARME   ", MyApp())),
+                        child: _myrbutton("REGISTRARME   ", RegisterPage())),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: _myrbutton("INICIAR SESION  ", MyApp()))
+                        child: _myrbutton("INICIAR SESION  ", LoginPage()))
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
                 ),
@@ -190,7 +192,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       : _default),
             ),
           ),
-          _inkwelltemplate("Recientes", _home, MyApp()),
+          _inkwelltemplate("Recientes", _home, HomePage()),
           _inkwelltemplate("Mis libros", _stuff, Stuff()),
           _inkwelltemplate("Mi Cuenta", _acc, Account()),
           _inkwelltemplate("Categorias", _cat, Categories()),
