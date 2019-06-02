@@ -6,22 +6,8 @@ import 'package:libraryapp/main.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-void main() => runApp(MiApp());
-
-class MiApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Firebase Auth',
-      home: LoginPage(title: 'Firebase Auth'),
-    );
-  }
-}
-
 class LoginPage extends StatefulWidget {
-  final String title;
-
-  LoginPage({Key key, this.title}) : super(key: key);
+    final String title= 'Sign in';
 
   _LoginPageState createState() => _LoginPageState();
 }
@@ -33,6 +19,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.deepPurpleAccent[700],
+      ),
       resizeToAvoidBottomPadding: false, //evitar error bottom overflowed
       body: Form(
         key: _formKey,
@@ -49,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: new Card(
                   color: Colors.grey[100],
                   margin: new EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 250.0, bottom: 200.0),
+                      left: 20.0, right: 20.0, top: 250.0, bottom: 150.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   elevation: 8.0,
@@ -100,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         new Padding(padding: new EdgeInsets.only(top: 30.0)),
                         new RaisedButton(
-                          color: Colors.blue,
+                          color: Colors.deepPurpleAccent[700],
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
                           padding: new EdgeInsets.all(16.0),

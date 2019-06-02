@@ -27,20 +27,52 @@ class Data {
   static Future<List<Book>> getBooks(String query) async {
     var Books = List<Book>();
     var bookData;
-    if(query == null){
-      query="since=last_year";
-      bookData =
-        await http.get('http://www.etnassoft.com/api/v1/get/?$query');
-    }else{
-      String nquery="book_title=$query";
-      bookData= await http.get('http://www.etnassoft.com/api/v1/get/?$nquery');
+    if (query == null) {
+      query = "since=last_year";
+      bookData = await http
+          .get('http://www.etnassoft.com/api/v1/get/?$query&num_items=20');
+    } else {
+      String nquery = "keyword=$query";
+      bookData = await http
+          .get('http://www.etnassoft.com/api/v1/get/?$nquery&num_items=30');
     }
-    
+
     var nbookData = bookData.body;
-    List<String> rplace = ["(",")",";","&#039s","ul&gt","&ltul&gt","&lt/li&gt","&rsquos","&ndash","&lt","li&gt","&mdash"];
-    for (var i in rplace){
-       nbookData =nbookData.replaceAll(i,"");
+    List<String> rplace = [
+      "(",
+      ")",
+      ";",
+      "&#039s",
+      "ul&gt",
+      "&ltul&gt",
+      "&lt/li&gt",
+      "&rsquos",
+      "&ndash",
+      "&lt",
+      "li&gt",
+      "&mdash",
+      "&ldquo",
+      "amp",
+      "&Psi",
+      "i&gt",
+      "/i&gt",
+      "strong&gt",
+      "&quot",
+      "&iquest",
+      "&rdquo",
+      "&laquo",
+      "&raquo",
+      "&#039"
+    ];
+    for (var i in rplace) {
+      nbookData = nbookData.replaceAll(i, "");
     }
+    nbookData = nbookData.replaceAll("&aacute", "á");
+    nbookData = nbookData.replaceAll("&eacute", "é");
+    nbookData = nbookData.replaceAll("&iacute", "í");
+    nbookData = nbookData.replaceAll("&oacute", "ó");
+    nbookData = nbookData.replaceAll("&uacute", "ú");
+    nbookData = nbookData.replaceAll("&ntilde", "ñ");
     var please = nbookData;
     var jsonData = jsonDecode(please);
     for (var i in jsonData) {
@@ -65,28 +97,68 @@ class ShowBooks extends StatelessWidget {
         backgroundColor: Colors.deepPurpleAccent[700],
       ),
       body: Container(
-
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 60),
         child: ListView(
           children: <Widget>[
             Image.network(
               book.cover,
               height: 350.0,
               width: 350.0,
-              alignment: Alignment.topLeft,
-              
+              alignment: Alignment.center,
             ),
-            //Divider(),
-            Text("\n${book.title}"),
-            Text("\n\tAutor: ${book.author}"),
-            Text("\n\tPaginas: ${book.pages}"),
-            Text("\n\tFecha de publicación: ${book.publisher_date}\n"),
-            Text(book.content),
-            
-            
+            Text(
+              "\n${book.title}",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            Divider(
+              color: Colors.black,
+            ),
+            Text("\n\tAutor(es): ${book.author}",
+                style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+            Text("\tPaginas: ${book.pages}",
+                style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+            Text("\tPublicación: ${book.publisher_date}\n",
+                style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+            Divider(
+              color: Colors.black,
+            ),
+            Text(
+              "\n${book.content}",
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.left,
+            ),
           ],
         ),
       ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          FloatingActionButton(
+            child: Icon(Icons.favorite),
+            //label: Text("Favoritos"),
+            onPressed: () {},
+            backgroundColor: Colors.deepPurpleAccent[700],
+            heroTag: "btn1",
+            //materialTapTargetSize: MaterialTapTargetSize.padded,
+          ),
+          FloatingActionButton(
+            child: Icon(Icons.assignment),
+            //label: Text("Pendientes"),
+            onPressed: () {},
+            backgroundColor: Colors.deepPurpleAccent[700],
+            heroTag: "btn2",
+          ),
+          FloatingActionButton(
+            child: Icon(Icons.check),
+            //label: Text("Termindados"),
+            onPressed: () {},
+            backgroundColor: Colors.deepPurpleAccent[700],
+            heroTag: "btn3",
+          )
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

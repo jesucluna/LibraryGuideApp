@@ -43,16 +43,3 @@ class _HomePageState extends State<HomePage> {
     );
     }
 }
-
-       /*return ListView.builder(
-               ||||||||||||||||||2e      itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) => ListTile(
-                        leading: Image.network(snapshot.data[index].cover),
-                        title: Text(snapshot.data[index].title),
-                        subtitle: Text(snapshot.data[index].author),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => ShowBooks(snapshot.data[index])));
-                        },
-                      ),
-                );*/

@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:libraryapp/default.dart';
 
-class SearchWidget extends StatelessWidget {
- @override
+
+class SearchScreen extends StatefulWidget {
+ 
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  String quer;
   Widget build(BuildContext context) {
-    return Card(
+    return Scaffold(
+      appBar: MyAppBar(
+        title:Card(
       elevation: 3.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(2.0)),
@@ -18,9 +27,9 @@ class SearchWidget extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: "Search..."),
-                onSubmitted: (String info) {
+                onChanged: (String info) {
                   if (info.isNotEmpty) {
-                    
+                    quer=info;
                   }
                 },
                 
@@ -30,26 +39,10 @@ class SearchWidget extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class SearchScreen extends StatefulWidget {
-  final String quer;
-
-  const SearchScreen({Key key, this.quer}) : super(key: key);
-  @override
-  _SearchScreenState createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        title: SearchWidget(),
+    ),
       ),
-      body: Futureb()
+
+    body: Futureb(query: quer,),
 
     );
   }
