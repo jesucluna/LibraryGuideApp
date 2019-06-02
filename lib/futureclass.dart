@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -134,31 +135,31 @@ class ShowBooks extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          FloatingActionButton(
-            child: Icon(Icons.favorite),
-            //label: Text("Favoritos"),
+          FloatingActionButton.extended(
+            icon: Icon(Icons.favorite),
+            label: Text("Favoritos", style: TextStyle(fontSize: 9),),
             onPressed: () {},
             backgroundColor: Colors.deepPurpleAccent[700],
             heroTag: "btn1",
             //materialTapTargetSize: MaterialTapTargetSize.padded,
           ),
-          FloatingActionButton(
-            child: Icon(Icons.assignment),
-            //label: Text("Pendientes"),
+          FloatingActionButton.extended(
+            icon: Icon(Icons.assignment),
+            label: Text("Pendientes", style: TextStyle(fontSize: 9),),
             onPressed: () {},
             backgroundColor: Colors.deepPurpleAccent[700],
             heroTag: "btn2",
           ),
-          FloatingActionButton(
-            child: Icon(Icons.check),
-            //label: Text("Termindados"),
+          FloatingActionButton.extended(
+            icon: Icon(Icons.check),
+            label: Text("Termindados", style: TextStyle(fontSize: 9),),
             onPressed: () {},
             backgroundColor: Colors.deepPurpleAccent[700],
             heroTag: "btn3",
           )
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
