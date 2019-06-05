@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:libraryapp/main.dart';
+import '../home.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,24 +36,24 @@ class _LoginPageState extends State<LoginPage> {
                 
               ),
               Container(
-                child: new Card(
+                child: Card(
                   color: Colors.grey[100],
-                  margin: new EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 250.0, bottom: 150.0),
+                  margin: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 100.0, bottom: 280.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   elevation: 8.0,
-                  child: new Padding(
-                    padding: new EdgeInsets.all(25.0),
-                    child: new Column(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Column(
                       children: <Widget>[
-                        new Container(
-                          child: new TextFormField(
+                       Container(
+                          child: TextFormField(
                             maxLines: 1,
                             controller: _emailController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Email', icon: Icon(Icons.email)),
                             onFieldSubmitted: (value) {
                               //FocusScope.of(context).requestFocus(_phoneFocusNode);
@@ -65,13 +65,15 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                         ),
-                        new Container(
-                          child: new TextFormField(
+                       Container(
+                          child: TextFormField(
+                            autocorrect: false,
+                            obscureText: true,
                             maxLines: 1,
                             controller: _passwordController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Password',
                               icon: Icon(
                                 Icons.vpn_key,
@@ -88,18 +90,18 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                         ),
-                        new Padding(padding: new EdgeInsets.only(top: 30.0)),
-                        new RaisedButton(
+                       Padding(padding: EdgeInsets.only(top: 30.0)),
+                       RaisedButton(
                           color: Colors.deepPurpleAccent[700],
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          padding: new EdgeInsets.all(16.0),
-                          child: new Row(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(16.0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              new Text(
+                             Text(
                                 'Login',
-                                style: new TextStyle(
+                                style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),

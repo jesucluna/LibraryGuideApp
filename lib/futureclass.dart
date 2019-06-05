@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 class Book {
-  String id;
+  String ID;
   String title;
   String author;
   String content;
@@ -14,7 +14,7 @@ class Book {
   String cover;
 
   Book(
-      [this.id,
+      [this.ID,
       this.title,
       this.author,
       this.content,
@@ -77,7 +77,7 @@ class Data {
     var please = nbookData;
     var jsonData = jsonDecode(please);
     for (var i in jsonData) {
-      Books.add(Book(i["id"], i["title"], i["author"], i["content"],
+      Books.add(Book(i["ID"], i["title"], i["author"], i["content"],
           i["publisher_date"], i["pages"], i["cover"]));
     }
     books = Books;
@@ -88,6 +88,39 @@ class Data {
 class ShowBooks extends StatelessWidget {
   final Book book;
   ShowBooks(this.book);
+  Widget _inkwelltemplate(String title, IconData icon, String idbook) {
+    return FlatButton(
+      onPressed: () {},
+      child: Row(children: <Widget>[Text(title, style: TextStyle(color:Colors.deepPurpleAccent[700]),), Icon(icon, color:Colors.deepPurpleAccent[700])]),
+    );
+  }
+
+  Widget _getFlbutt(BuildContext context) {
+    return FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.deepPurpleAccent[700],
+        onPressed: () {
+          AlertDialog alertDialog = AlertDialog(
+            actions: <Widget>[
+              Center(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                _inkwelltemplate("Favoritos", Icons.favorite, book.ID),
+                _inkwelltemplate("Pendientes", Icons.assignment, book.ID),
+                _inkwelltemplate("Completados", Icons.check_circle, book.ID),
+              ]))
+            ],
+          );
+          showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return alertDialog;
+              });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,34 +165,27 @@ class ShowBooks extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          FloatingActionButton.extended(
-            icon: Icon(Icons.favorite),
-            label: Text("Favoritos", style: TextStyle(fontSize: 9),),
-            onPressed: () {},
-            backgroundColor: Colors.deepPurpleAccent[700],
-            heroTag: "btn1",
-            //materialTapTargetSize: MaterialTapTargetSize.padded,
-          ),
-          FloatingActionButton.extended(
-            icon: Icon(Icons.assignment),
-            label: Text("Pendientes", style: TextStyle(fontSize: 9),),
-            onPressed: () {},
-            backgroundColor: Colors.deepPurpleAccent[700],
-            heroTag: "btn2",
-          ),
-          FloatingActionButton.extended(
-            icon: Icon(Icons.check),
-            label: Text("Termindados", style: TextStyle(fontSize: 9),),
-            onPressed: () {},
-            backgroundColor: Colors.deepPurpleAccent[700],
-            heroTag: "btn3",
-          )
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _getFlbutt(context),
+      /* FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (txt) => AlertDialog(
+                  title: Text("Hola"),
+                  content: Container(
+                      child: ListView(
+                    children: <Widget>[
+                      _inkwelltemplate("Favoritos", Icons.favorite, book.ID),
+                      _inkwelltemplate("Pendientes", Icons.assignment, book.ID),
+                      _inkwelltemplate(
+                          "Completados", Icons.check_circle, book.ID),
+                    ],
+                  ))));
+        },
+        backgroundColor: Colors.deepPurpleAccent[700],
+        child: Icon(Icons.add),
+      ),*/
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

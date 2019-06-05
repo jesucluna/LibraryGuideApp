@@ -27,9 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomPadding: false,
       body: Form(
         key: _formKey,
-        //autovalidate: _autovalidate,
         child: Container(
-          //padding: EdgeInsets.all(15.0),
           child: Stack(
             children: <Widget>[
               Container(
@@ -38,25 +36,25 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Center(child:Container(
                 
-                child: new Card(
+                child: Card(
                 
                   color: Colors.grey[100],
-                  margin: new EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 250.0, bottom: 160.0),
+                  margin: EdgeInsets.only(
+                      left: 20.0, right: 20.0, top: 100.0, bottom: 230.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   elevation: 8.0,
-                  child: new Padding(
-                    padding: new EdgeInsets.all(25.0),
-                    child: new Column(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Column(
                       children: <Widget>[
-                        new Container(
-                          child: new TextFormField(
+                        Container(
+                          child: TextFormField(
                             maxLines: 1,
                             controller: _emailController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Email', icon: Icon(Icons.email)),
                             onFieldSubmitted: (value) {
                               //FocusScope.of(context).requestFocus(_phoneFocusNode);
@@ -68,13 +66,15 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           ),
                         ),
-                        new Container(
-                          child: new TextFormField(
+                        Container(
+                          child: TextFormField(
+                            autocorrect: false,
+                            obscureText: true,
                             maxLines: 1,
                             controller: _passswordController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Password',
                               icon: Icon(
                                 Icons.vpn_key,
@@ -82,7 +82,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                             onFieldSubmitted: (value) {
-                              //FocusScope.of(context).requestFocus(_phoneFocusNode);
                             },
                             validator: (value) {
                               if (value.isEmpty) {
@@ -91,18 +90,18 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           ),
                         ),
-                        new Padding(padding: new EdgeInsets.only(top: 30.0)),
-                        new RaisedButton(
+                        Padding(padding: EdgeInsets.only(top: 30.0)),
+                        RaisedButton(
                           color: Colors.deepPurpleAccent[700],
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          padding: new EdgeInsets.all(16.0),
-                          child: new Row(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(16.0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              new Text(
+                              Text(
                                 'Register',
-                                style: new TextStyle(
+                                style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
@@ -119,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Text(_success == null
                 ? ''
                 : (_success
-                  ? 'Successfully registered' + _userEmail
+                  ? 'Successfully registered ' + _userEmail
                   : 'Registration failed'
                 )
               ),
@@ -135,6 +134,11 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
       ),
+      persistentFooterButtons: <Widget>[
+        FlatButton(onPressed: ()=>
+          Navigator.of(context)
+            .pushNamed('/login'), child: Text("Ya estoy registrado"),)
+      ],
             
           
         );

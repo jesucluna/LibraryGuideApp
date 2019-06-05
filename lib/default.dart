@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:libraryapp/login_pages/loginemail.dart';
-import 'package:libraryapp/login_pages/registerpage.dart';
-import 'drawer_pages/account.dart';
-import 'drawer_pages/cat.dart';
-import 'drawer_pages/set.dart';
-import 'drawer_pages/stuff.dart';
-import 'drawer_pages/about.dart';
-import 'main.dart';
 import 'futureclass.dart';
 
 class MyAppBar extends AppBar {
   MyAppBar({Key key, Widget title, bottom})
       : super(
-            key: key,
-            elevation: 0.1,
-            backgroundColor: Colors.deepPurpleAccent[700],
-            title: title,
+          key: key,
+          elevation: 0.1,
+          backgroundColor: Colors.deepPurpleAccent[700],
+          title: title,
         );
-            /**/
-        
+  /**/
+
 }
 
 class Futureb extends StatefulWidget {
   final String query;
   const Futureb({Key key, this.query}) : super(key: key);
-  
+
   @override
   _FuturebState createState() => _FuturebState();
 }
@@ -42,37 +34,38 @@ class _FuturebState extends State<Futureb> {
             ),
           );
         } else {
-          return Container(color: Colors.black,child:GridView.builder(
-            itemCount: snapshot.data.length,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemBuilder: (BuildContext context, int index) => Card(
-                  child: Material(
-                      child: InkWell(
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  ShowBooks(snapshot.data[index]),
-                            )),
-                        child: GridTile(
-                          footer: Container(
-                            padding: EdgeInsets.all(3),
-                            height: 30,
-                            color: Colors.black,
-                            child: Text(
-                              snapshot.data[index].title,
-                              style:
-                                  TextStyle(fontSize: 10, color: Colors.white),
-                              textAlign: TextAlign.center,
+          return Container(
+              color: Colors.black,
+              child: GridView.builder(
+                itemCount: snapshot.data.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (BuildContext context, int index) => Card(
+                      child: Material(
+                        child: InkWell(
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    ShowBooks(snapshot.data[index]),
+                              )),
+                          child: GridTile(
+                            footer: Container(
+                              padding: EdgeInsets.all(3),
+                              height: 30,
+                              color: Colors.black,
+                              child: Text(
+                                snapshot.data[index].title,
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
+                            child: Image.network(snapshot.data[index].cover),
                           ),
-                          child: Image.network(snapshot.data[index].cover),
                         ),
                       ),
                     ),
-                 
-                ),
-          ));
+              ));
         }
       },
     );
@@ -89,7 +82,6 @@ class _MyDrawerState extends State<MyDrawer> {
   IconData _home = Icons.home;
   IconData _stuff = Icons.favorite;
   IconData _acc = Icons.account_circle;
-  IconData _cat = Icons.dashboard;
   IconData _set = Icons.settings;
   IconData _about = Icons.help;
 
@@ -105,38 +97,12 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  Widget _myrbutton(String text, Widget ruta) {
-    return RaisedButton(
-      child: Text(
-        text,
-        style: TextStyle(
-            color: Theme.of(context).platform == TargetPlatform.iOS
-                ? Colors.white
-                : Colors.black),
-        textAlign: TextAlign.center,
-      ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Theme.of(context).platform == TargetPlatform.iOS
-          ? Colors.black
-          : Colors.white,
-      onPressed: () {
-        Navigator.popUntil(
-            context, ModalRoute.withName(Navigator.defaultRouteName));
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) => ruta));
-      },
-    );
-  }
-
-  Widget _inkwelltemplate(String title, IconData icon, Widget root) {
+  Widget _inkwelltemplate(String title, IconData icon, String root) {
     IconData _new = Icons.help;
 
     return InkWell(
       onTap: () {
-        Navigator.popUntil(
-            context, ModalRoute.withName(Navigator.defaultRouteName));
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) => root));
+        Navigator.pushNamed(context, root);
       },
       child: ListTile(
         title: Text(title),
@@ -156,22 +122,9 @@ class _MyDrawerState extends State<MyDrawer> {
             padding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
             child: UserAccountsDrawerHeader(
+              accountEmail:  _textdrawheader('¡Bienvenido!', 16.0),
               accountName:
-                  _textdrawheader('LibraryGuide Demo\n¡Inicia Sesión!', 16.0),
-              accountEmail: Container(
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: _myrbutton("REGISTRARME   ", RegisterPage())),
-                    Padding(
-                        padding: EdgeInsets.only(left: 5),
-                        child: _myrbutton("INICIAR SESION  ", LoginPage()))
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.start,
-                ),
-              ),
+                  _textdrawheader('LibraryGuide Demo\n', 16.0),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
                   backgroundColor:
@@ -190,13 +143,12 @@ class _MyDrawerState extends State<MyDrawer> {
                       : _default),
             ),
           ),
-          _inkwelltemplate("Recientes", _home, HomePage()),
-          _inkwelltemplate("Mis libros", _stuff, Stuff()),
-          _inkwelltemplate("Mi Cuenta", _acc, Account()),
-          _inkwelltemplate("Categorias", _cat, Categories()),
+          _inkwelltemplate("Recientes", _home, '/home'),
+          _inkwelltemplate("Mis libros", _stuff, '/stuff'),
+          _inkwelltemplate("Mi Cuenta", _acc, '/account'),
           Divider(),
-          _inkwelltemplate("Configuración", _set, Settings()),
-          _inkwelltemplate("Info", _about, About())
+          _inkwelltemplate("Configuración", _set, '/set'),
+          _inkwelltemplate("Info", _about, '/about')
         ],
       ),
     );
